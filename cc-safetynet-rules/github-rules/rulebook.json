@@ -1,0 +1,28 @@
+{
+  "rulebook_version": 1,
+  "name": "github-rules",
+  "version": "1.0.0",
+  "description": "Small GitHub-hosted rulebook for manual rule add testing.",
+  "author": "cc-safety-net",
+  "allowed_commands": ["npm"],
+  "rules": [
+    {
+      "name": "block-npm-global-install",
+      "command": "npm",
+      "subcommand": "install",
+      "block_args": ["-g", "--global"],
+      "reason": "Install packages locally or use npx instead."
+    }
+  ],
+  "tests": [
+    {
+      "command": "npm install -g typescript",
+      "expect": "blocked",
+      "rule": "block-npm-global-install"
+    },
+    {
+      "command": "npm install typescript",
+      "expect": "allowed"
+    }
+  ]
+}
